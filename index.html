@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motores de Receita 2026 — Quick Wins</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f8f9fb;--surface:#fff;--s2:#f2f4f7;--border:#e4e7ec;--b2:#cbd0d8;
+  --text:#101828;--t2:#475467;--t3:#98a2b3;
+  --blue:#2563eb;--blue-bg:#eff6ff;--blue-t:#1d4ed8;
+  --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-t:#5b21b6;
+  --green:#16a34a;--green-bg:#f0fdf4;--green-t:#15803d;
+  --amber:#d97706;--amber-bg:#fffbeb;--amber-t:#92400e;
+  --red:#dc2626;--red-bg:#fef2f2;--red-t:#991b1b;
+  --teal:#0d9488;--teal-bg:#f0fdfa;--teal-t:#0f766e;
+  --pink:#db2777;--pink-bg:#fdf2f8;--pink-t:#9d174d;
+  --gray-bg:#f9fafb;--gray-t:#374151;
+  --r:8px;--rl:12px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.shell{max-width:1300px;margin:0 auto;padding:0 24px 56px;}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:100;}
+.hi{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:10px;}
+.lm{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.lm svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.lt{font-size:14px;font-weight:600;}.ls{font-size:11px;color:var(--t3);}
+.hnav{display:flex;gap:6px;flex-wrap:wrap;}
+.wpill{font-size:11px;font-weight:500;padding:4px 12px;border-radius:999px;border:1px solid var(--border);color:var(--t2);background:var(--surface);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.wpill:hover{background:var(--s2);}
+.wpill.on{background:var(--text);color:#fff;border-color:var(--text);}
+.wpill.w1.on{background:var(--amber);border-color:var(--amber);}
+.wpill.w2.on{background:var(--blue);border-color:var(--blue);}
+.wpill.w3.on{background:var(--green);border-color:var(--green);}
+.sync-badge{display:flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:999px;background:var(--green-bg);color:var(--green-t);border:1px solid #bbf7d0;white-space:nowrap;}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.sync-badge.syncing{background:var(--amber-bg);color:var(--amber-t);border-color:#fde68a;}
+.sync-badge.syncing .sync-dot{background:var(--amber);}
+.sync-badge.error{background:var(--red-bg);color:var(--red-t);border-color:#fecaca;}
+.sync-badge.error .sync-dot{background:var(--red);animation:none;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.tabnav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:22px;margin-top:22px;}
+.tab{font-size:13px;font-weight:500;padding:10px 18px;cursor:pointer;color:var(--t2);border-bottom:2px solid transparent;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.tab:hover{color:var(--text);}
+.tab.on{color:var(--blue);border-bottom-color:var(--blue);}
+.tab svg{width:14px;height:14px;}
+.hero{padding:22px 0 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:0;}
+.hero h1{font-size:21px;font-weight:600;margin-bottom:3px;}
+.hero p{font-size:13px;color:var(--t2);}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px;}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:15px 17px;border-top:3px solid var(--blue);}
+.mc.a2{border-top-color:var(--green);}.mc.a3{border-top-color:var(--amber);}.mc.a4{border-top-color:var(--red);}.mc.a5{border-top-color:var(--teal);}
+.ml{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+.mv{font-size:24px;font-weight:600;color:var(--text);line-height:1;margin-bottom:3px;}
+.ms{font-size:11px;color:var(--t2);}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+.charts-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:22px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;}
+.card-title{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:6px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;}
+.bar-label{width:95px;color:var(--t2);flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bar-track{flex:1;height:16px;background:var(--s2);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+.bar-val{width:60px;text-align:right;color:var(--t2);font-weight:600;flex-shrink:0;font-size:11px;}
+.info-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.info-row:last-child{border-bottom:none;}
+.info-name{display:flex;align-items:center;gap:8px;font-weight:500;}
+.qdot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+.cnt-row{display:flex;gap:6px;align-items:center;}
+.section-title{font-size:13px;font-weight:600;color:var(--t2);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.section-title svg{width:14px;height:14px;}
+.toolbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:13px 16px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.tg{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.tl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-right:2px;white-space:nowrap;}
+.chip{font-size:11px;font-weight:500;padding:3px 9px;border-radius:999px;border:1px solid var(--border);color:var(--t2);background:var(--surface);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.chip:hover{background:var(--s2);}.chip.on{background:var(--text);color:#fff;border-color:var(--text);}
+.sw{margin-left:auto;position:relative;}
+.sw input{font-family:'Inter',sans-serif;font-size:12px;padding:6px 10px 6px 30px;border:1px solid var(--border);border-radius:var(--r);background:var(--s2);color:var(--text);outline:none;width:190px;transition:all .2s;}
+.sw input:focus{background:var(--surface);border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+.sw svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--t3);pointer-events:none;}
+.tw{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{background:var(--s2);padding:9px 12px;text-align:left;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#f0f5ff;}
+tbody tr.editing{background:#fffbeb;outline:2px solid var(--amber);outline-offset:-2px;}
+td{padding:10px 12px;color:var(--text);vertical-align:middle;}
+td.id-c{color:var(--t3);font-size:10px;width:36px;}
+td.bu-c{font-weight:600;font-size:11px;white-space:nowrap;width:88px;}
+td.ac-c{max-width:230px;line-height:1.45;font-size:12px;}
+td.ow-c{font-size:11px;color:var(--t2);max-width:110px;line-height:1.4;}
+td.pr-c{font-size:11px;font-weight:500;white-space:nowrap;width:52px;}
+td.hr-c{font-size:11px;color:var(--t2);white-space:nowrap;width:58px;text-align:right;}
+td.cu-c{font-size:11px;font-weight:500;white-space:nowrap;width:90px;text-align:right;}
+td.prog-c{width:95px;}
+.prog-wrap{width:100%;background:var(--s2);border-radius:4px;height:7px;}
+.prog-fill{height:7px;border-radius:4px;transition:width .3s;}
+.prog-label{font-size:10px;color:var(--t3);margin-top:2px;}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;white-space:nowrap;line-height:1.6;}
+.b-motor{background:var(--purple-bg);color:var(--purple-t);}
+.b-elo{background:var(--teal-bg);color:var(--teal-t);}
+.b-ferr{background:var(--blue-bg);color:var(--blue-t);}
+.b-alma{background:var(--pink-bg);color:var(--pink-t);}
+.b-mit{background:var(--red-bg);color:var(--red-t);}
+.b-proc{background:var(--purple-bg);color:var(--purple-t);}
+.b-vis{background:var(--blue-bg);color:var(--blue-t);}
+.b-rec{background:var(--green-bg);color:var(--green-t);}
+.b-pes{background:var(--pink-bg);color:var(--pink-t);}
+.b-w1{background:var(--amber-bg);color:var(--amber-t);}
+.b-w2{background:var(--blue-bg);color:var(--blue-t);}
+.b-w3{background:var(--green-bg);color:var(--green-t);}
+.b-alto{background:var(--red-bg);color:var(--red-t);}
+.b-medio{background:var(--amber-bg);color:var(--amber-t);}
+.b-baixo{background:var(--gray-bg);color:var(--gray-t);}
+.b-concluido{background:var(--green-bg);color:var(--green-t);}
+.b-andamento{background:var(--blue-bg);color:var(--blue-t);}
+.b-atrasado{background:var(--red-bg);color:var(--red-t);}
+.b-pendente{background:var(--gray-bg);color:var(--gray-t);}
+.edit-row td{padding:0;}
+.edit-panel{background:#fffdf0;border-top:1px solid var(--amber);border-bottom:1px solid var(--amber);padding:14px 16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
+.ef{display:flex;flex-direction:column;gap:4px;}
+.ef label{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;}
+.ef input,.ef select,.ef textarea{font-family:'Inter',sans-serif;font-size:12px;padding:6px 9px;border:1px solid var(--b2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;width:100%;}
+.ef input:focus,.ef select:focus,.ef textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(217,119,6,.1);}
+.ef textarea{resize:none;min-height:54px;line-height:1.4;}
+.edit-actions{display:flex;flex-direction:column;gap:6px;}
+.btn-save{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:7px 16px;border-radius:6px;border:none;background:var(--amber);color:#fff;cursor:pointer;white-space:nowrap;}
+.btn-save:hover{background:#b45309;}
+.btn-cancel{font-family:'Inter',sans-serif;font-size:12px;padding:6px 12px;border-radius:6px;border:1px solid var(--b2);background:var(--surface);color:var(--t2);cursor:pointer;}
+.btn-cancel:hover{background:var(--s2);}
+.tf{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-top:1px solid var(--border);font-size:11px;color:var(--t3);background:var(--s2);}
+.empty{text-align:center;padding:36px;color:var(--t3);font-size:13px;}
+.tip{font-size:11px;color:var(--t3);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.tip svg{width:13px;height:13px;flex-shrink:0;}
+.empty-chart{color:var(--t3);font-size:12px;padding:16px 0;text-align:center;line-height:1.6;}
+footer{margin-top:36px;text-align:center;font-size:11px;color:var(--t3);}
+.loading-overlay{position:fixed;inset:0;background:rgba(248,249,251,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:200;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;color:var(--t2);font-weight:500;}
+.user-tag{font-size:11px;color:var(--t3);padding:3px 8px;border-radius:999px;background:var(--s2);border:1px solid var(--border);}
+@media(max-width:960px){.metrics{grid-template-columns:repeat(3,1fr);}.charts-grid,.charts-grid-3{grid-template-columns:1fr;}.edit-panel{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr);}.shell{padding:0 12px 32px;}}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text">Conectando ao Firebase...</div>
+</div>
+
+<header>
+  <div class="hi">
+    <div class="logo">
+      <div class="lm"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="lt">Motores de Receita 2026</div><div class="ls">Quick Wins · Colaborativo em tempo real</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <div class="sync-badge syncing" id="sync-badge"><div class="sync-dot"></div><span id="sync-text">Conectando...</span></div>
+      <span class="user-tag" id="user-tag">—</span>
+      <div class="hnav">
+        <button class="wpill on" onclick="setWave('todos',this)">Todos</button>
+        <button class="wpill w1" onclick="setWave('Wave 1',this)">W1 Golden</button>
+        <button class="wpill w2" onclick="setWave('Wave 2',this)">W2</button>
+        <button class="wpill w3" onclick="setWave('Wave 3',this)">W3</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <div class="hero">
+    <div>
+      <h1>Inventário de Quick Wins — 2026</h1>
+      <p>96 iniciativas · 11 BUs · Edições sincronizadas em tempo real via Firebase</p>
+    </div>
+  </div>
+
+  <div class="tabnav">
+    <div class="tab on" onclick="showTab('dashboard',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard
+    </div>
+    <div class="tab" onclick="showTab('lista',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Lista & Edição
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="tab-dashboard">
+    <div class="metrics" id="metrics"></div>
+    <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Visão geral de execução</div>
+    <div class="charts-grid">
+      <div class="card"><div class="card-title">Status das iniciativas</div><div id="chart-status"></div></div>
+      <div class="card"><div class="card-title">Progresso por BU</div><div id="chart-bu-prog"></div></div>
+    </div>
+    <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Distribuição estratégica</div>
+    <div class="charts-grid">
+      <div class="card"><div class="card-title">Golden QWs por BU</div><div id="chart-bu"></div></div>
+      <div class="card"><div class="card-title">Por quadrante (Golden vs Backlog)</div><div id="chart-quad"></div></div>
+    </div>
+    <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Horas e custos por BU</div>
+    <div class="charts-grid" style="margin-bottom:22px;">
+      <div class="card"><div class="card-title">Horas trabalhadas por BU</div><div id="chart-horas-bu"></div></div>
+      <div class="card"><div class="card-title">Custo investido por BU (R$)</div><div id="chart-custo-bu"></div></div>
+    </div>
+    <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Análise por tipo, impacto e escopo</div>
+    <div class="charts-grid-3">
+      <div class="card"><div class="card-title">Tipo de ação</div><div id="chart-tipo"></div></div>
+      <div class="card"><div class="card-title">Nível de impacto</div><div id="chart-impacto"></div></div>
+      <div class="card"><div class="card-title">Escopo</div><div id="chart-escopo"></div></div>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <div id="tab-lista" style="display:none;">
+    <div class="toolbar">
+      <div class="tg"><span class="tl">BU</span><div id="bu-filters" style="display:flex;gap:5px;flex-wrap:wrap;"></div></div>
+      <div class="tg"><span class="tl">Quadrante</span><div id="quad-filters" style="display:flex;gap:5px;"></div></div>
+      <div class="tg"><span class="tl">Status</span><div id="status-filters" style="display:flex;gap:5px;"></div></div>
+      <div class="sw">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" placeholder="Buscar..." oninput="renderTable()">
+      </div>
+    </div>
+    <div class="tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Clique em qualquer linha para editar. Alterações são sincronizadas em tempo real para todos os usuários conectados.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>ID</th><th>BU</th><th>Ação</th><th>Quadrante</th><th>Tipo</th><th>Wave</th><th>Impacto</th><th>Status</th><th>Progresso</th><th>Owner</th><th>Prazo</th><th style="text-align:right;">Horas</th><th style="text-align:right;">Custo (R$)</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty" style="display:none;">Nenhuma iniciativa encontrada.</div>
+      <div class="tf"><span id="count-info"></span><span id="last-update">—</span></div>
+    </div>
+  </div>
+
+  <footer>Motores de Receita 2026 · Alper · Firebase Realtime Database</footer>
+</div>
+
+<!-- Firebase SDKs -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAddLWoAkUmSUistG9EvC7bmeQtY3-UBbY",
+  authDomain: "painel-quickwins.firebaseapp.com",
+  databaseURL: "https://painel-quickwins-default-rtdb.firebaseio.com",
+  projectId: "painel-quickwins",
+  storageBucket: "painel-quickwins.firebasestorage.app",
+  messagingSenderId: "840675204862",
+  appId: "1:840675204862:web:9da288b7740dd8949acfaf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const dbRef = ref(db, 'qws2026');
+
+const DEFAULTS=[
+  {id:'1',bu:'Agro',acao:'Turno de transição nas top 10 contas: André e Afonso visitam as 10 maiores contas (68,4% da receita)',quad:'Alma',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'André Lins + Afonso',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'2',bu:'Agro',acao:'Protocolo de blindagem de carteira em 3 níveis para Aurora (R$22M), SLC (R$9,9M) e contas #3–#10',quad:'Alma',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'F. Demier / Afonso',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'3',bu:'Agro',acao:'Sessões de captura técnica com Giovanni e William: 4–6 sessões gravadas sobre expertise patrimonial',quad:'Alma',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Djalma',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'4',bu:'Agro',acao:'Focus group Agro-Resseguro: priorização de produtos parados (florestal, pecuário, paramétrico)',quad:'MOTOR',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Djalma',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'5',bu:'Agro',acao:'Início do Playbook Agro + Proposta de Valor Unificada V1 em 90 dias',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Djalma',prazo:'90d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'6',bu:'Agro',acao:'Diagnóstico de recuperabilidade Lavoura: segmentar 1.612 clientes perdidos por causa',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Afonso',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'7',bu:'Resseguros',acao:'Inventário de facilities represadas no Quiver com receita estimada',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Laurito',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'8',bu:'Resseguros',acao:'Levantamento de inventário de facilities junto às BUs (Property, Agro, Liability)',quad:'Elo',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Débora',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'9',bu:'Resseguros',acao:'Diagnóstico de viabilidade para automação do borderô',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Laurito',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'10',bu:'Resseguros',acao:'Mapeamento granular de contas com parceiro: split, substituibilidade, receita',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Laurito',prazo:'75d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'11',bu:'Resseguros',acao:'Documentação de conhecimento crítico de Débora e Bruno (5 contas e processos cada)',quad:'Alma',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Laurito',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'12',bu:'Resseguros',acao:'Mapeamento e priorização (top 5) das 23 filiais inativas com potencial RE',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Alex Ferreira',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'13',bu:'Resseguros',acao:'Classificação da carteira em 3 tiers por complexidade e relevância estratégica',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Alex Ferreira',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'14',bu:'Resseguros',acao:'SLAs de negócio e checklist de qualidade para Placement RE',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Bruno Christ',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'15',bu:'Resseguros',acao:'Criação de indicadores de Placement: pipeline, hit ratio, aging, composição',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Bruno Christ',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'16',bu:'Resseguros',acao:'Mapeamento de renovações e novos negócios passíveis de resseguro (próximos 6 meses)',quad:'Elo',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Laurito',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'17',bu:'Cativas/GR',acao:'Comunicar restrições de exclusividade contratual Cosan às BUs da vertical',quad:'Elo',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'JB Medeiros',prazo:'15d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'18',bu:'Cativas/GR',acao:'Mapear exposição por controlada Raízen: receita, apólices, cenário de stress',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'JB Medeiros',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'19',bu:'Cativas/GR',acao:'Mapa do ecossistema Cosan "As a Channel": 5 controladas, fornecedores, top 20',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'F. Paladino',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'20',bu:'Cativas/GR',acao:'Mapa do ecossistema Pátria: 104 investidas com status, priorizar 15 targets',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'F. Paladino',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'21',bu:'Cativas/GR',acao:'Sessão de priorização com M&A: top 15 dos 70 targets de novas cativas',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'JB + Victor',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'22',bu:'Cativas/GR',acao:'Checagem de compliance de seguros nos fornecedores Cosan',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Paula',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'23',bu:'Cativas/GR',acao:'Playbook de cativas V1: documentar expertise tácita em formato transferível',quad:'Ferramentas',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'JB + Paula',prazo:'75d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'24',bu:'Cativas/GR',acao:'Documentar ICP por canal (Cosan, Pátria, BR Partners/Fictor)',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'F. Paladino',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'25',bu:'Cativas/GR',acao:'Definir 5 KPIs de saúde da conta Cosan com baseline',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'F. Paladino',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'26',bu:'Cativas/GR',acao:'Mapear apólices/exposições não contratadas na Cosan (Cyber, Ambiental, BI)',quad:'MOTOR',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Paula Cordeiro',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'27',bu:'Cativas/GR',acao:'Solicitar a Growth matriz de afinidade CNAE aplicada a fornecedores Cosan',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 3',impacto:'Médio',escopo:'Transversal',owner:'JB',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'28',bu:'Cativas/GR',acao:'Construir business case preliminar de GR faturado (one-pager)',quad:'MOTOR',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'JB',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'29',bu:'Liability/LF',acao:'Investigar causa raiz da retenção RCG (55,4%): churn real vs reclassificação',quad:'MOTOR',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Robert H',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'30',bu:'Liability/LF',acao:'Segmentar 299 clientes M/UM que compram só RCG ou só LF: lista para cross-sell',quad:'MOTOR',tipo:'Receita',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Paula Ferraz',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'31',bu:'Liability/LF',acao:'Levantar oportunidades cross-sell inter-BU: cruzar base LF com Garantia (D&O)',quad:'Elo',tipo:'Receita',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Paula Ferraz',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'32',bu:'Liability/LF',acao:'Mapear produtos candidatos a facility p/ SME: seguradoras com apetite',quad:'MOTOR',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Paula Ferraz',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'33',bu:'Liability/LF',acao:'Avaliar alternativas de automação de cotação em paralelo a AlperTech',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Paula Ferraz',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'34',bu:'Liability/LF',acao:'Padronizar submissões das filiais: checklist por produto (D&O, E&O, RC, Cyber)',quad:'Elo',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Paula Ferraz',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'35',bu:'Liability/LF',acao:'Sessão de capacitação com filiais sobre Cyber SME e D&O SME simplificado',quad:'Elo',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Paula Ferraz',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'36',bu:'Liability/LF',acao:'Baseline de penetração de LF na base corporativa inter-BU',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Robert H',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'37',bu:'Liability/LF',acao:'Formalizar protocolo de triagem LF-Resseguros: critérios e SLA',quad:'Elo',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Robert H',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'38',bu:'Liability/LF',acao:'Solicitar ao FP&A dados para estudo de rentabilidade por faixa',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Robert H',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'39',bu:'Liability/LF',acao:'Levantar exposição à Lei 15.040: gaps de rastreabilidade e adequação',quad:'Ferramentas',tipo:'Mitigação',wave:'Wave 2',impacto:'Alto',escopo:'Transversal',owner:'Paula Ferraz',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'40',bu:'Property',acao:'Protocolo de rastreabilidade mínima para cotações ativas — Lei 15.040',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Olavo',prazo:'3sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'42',bu:'Property',acao:'Checklist expandido de conferência de apólices para riscos Medium e Large',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Olavo',prazo:'2sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'44',bu:'Property',acao:'Protocolo de monitoramento para contas > R$100k: concentração, cenários, gatilhos',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Olavo',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'45',bu:'Property',acao:'Mapeamento concentração Top 10 contas com classificação de risco/ameaça severa',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 2',impacto:'Alto',escopo:'Transversal',owner:'Djalma',prazo:'3sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'46',bu:'Property',acao:'Mapear e designar responsáveis para caixas de e-mail corporativas',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Baixo',escopo:'BU-específica',owner:'Djalma',prazo:'2sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'47',bu:'Property',acao:'Diagnóstico técnico do Multicalculo: funcionalidades, causa raiz, recomendação',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Djalma',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'48',bu:'Property',acao:'Primeira reunião de governança BU Property × Filiais (modelo Boccia)',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Djalma',prazo:'2sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'49',bu:'Property',acao:'Levantamento das 20 maiores renovações perdidas: causa raiz, destino, ações',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Djalma',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'50',bu:'Property',acao:'Reunião alinhamento Property + Resseguros + Comercial: triagem renovações fim do ano',quad:'Elo',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Djalma + Alex F.',prazo:'2sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'51',bu:'Property',acao:'Assessment de prontidão da equipe para o TOM: competências vs requisitos',quad:'Alma',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Djalma',prazo:'3sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'52',bu:'Sinistros',acao:'Varredura Lei 15.040: sinistros >30d sem manifestação, emitir notificação formal',quad:'Ferramentas',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Elisa',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'53',bu:'Sinistros',acao:'Protocolo para sinistros complexos: responsável designado + critérios de consultoria',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'JB / Djalma',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'54',bu:'Sinistros',acao:'Disclaimer jurídico em pré-análises de cobertura',quad:'Ferramentas',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Elisa',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'55',bu:'Sinistros',acao:'Critério de alocação de RH em M&A: posições em operações e sinistros por receita',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'JB / Elisa',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'57',bu:'Sinistros',acao:'Requisitos e cenários de rastreamento de sinistros: 5 requisitos + 3 cenários',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Elisa',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'58',bu:'Sinistros',acao:'Ritmo-Ritual de gestão com filiais: call quinzenal 30min com Araras, POA e MG',quad:'Elo',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'JB',prazo:'15d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'59',bu:'Sinistros',acao:'Acordos proativos em cauda longa: 5 sinistros RC mais antigos (2015–2019)',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Elisa',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'60',bu:'Sinistros',acao:'Ativar Guia do Segurado: distribuir para 3 filiais + sessão de apresentação',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Elisa',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'61',bu:'Sinistros',acao:'Envolver Sinistros nos treinamentos de Placement: participação em ≥1 treinamento',quad:'Elo',tipo:'Visibilidade',wave:'Wave 3',impacto:'Médio',escopo:'Transversal',owner:'Elisa',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'62',bu:'Vendas',acao:'Documentação para Alperização da rede de associados Aviation: ~12 dealers',quad:'Alma',tipo:'Mitigação',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Marroquim',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'63',bu:'Vendas',acao:'Matriz de escopo e fronteiras entre os 5 diretores: documentar sobreposições',quad:'MOTOR',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'André Lins',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'64',bu:'Vendas',acao:'Governança mínima: template + reunião periódica de pipeline com os 5 diretores',quad:'MOTOR',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'André Lins',prazo:'15d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'65',bu:'Vendas',acao:'Mapeamento clientes UM+Corp sem contato >6 meses: 584 clientes, R$40,7M',quad:'MOTOR',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'F. Demier + Growth',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'66',bu:'Vendas',acao:'Mapeamento dos 50 clientes Large (R$91M): interlocutor por BU, contas vulneráveis',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Dale',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'67',bu:'Vendas',acao:'Extração FP&A em painel operacional: segmentação 8.027 clientes para os 5 diretores',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'André + Growth/BI',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'68',bu:'Vendas',acao:'ICP preliminar por frente comercial: cada diretor documenta critérios de cliente ideal',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'André Lins',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'69',bu:'Vendas',acao:'Critérios de elegibilidade e primeiro corte Inside Sales: 500–1.000 clientes',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Ana Mendes + Djalma',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'70',bu:'Vendas',acao:'Inventário de producers: 700 cadastrados com status, receita, nº clientes, produtos',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Dale + Afonso',prazo:'75d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'71',bu:'Vendas',acao:'Documentação do modelo POA como playbook replicável: sessão com Thiago Lins',quad:'Elo',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Dale + Thiago Lins',prazo:'75d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'72',bu:'Operações',acao:'Comunicação formal de mandato do SVP para todas as BUs sobre Operações transversal',quad:'MOTOR',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Fábio Ursaia',prazo:'1sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'73',bu:'Operações',acao:'Troca de experiências com Araras e Agro: absorver modelos internos',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Olavo',prazo:'3–4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'74',bu:'Operações',acao:'Definição de estrutura de liderança operacional SP',quad:'Alma',tipo:'Processo',wave:'Wave 2',impacto:'Alto',escopo:'BU-específica',owner:'Fábio + RH',prazo:'5sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'75',bu:'Operações',acao:'Revisão de política de remuneração e cargos da equipe operacional',quad:'Alma',tipo:'Mitigação',wave:'Wave 2',impacto:'Alto',escopo:'Transversal',owner:'Olavo',prazo:'6sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'76',bu:'Operações',acao:'Checklist de handoff Placement → Operações por ramo',quad:'MOTOR',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Olavo + Rosana',prazo:'8sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'77',bu:'Operações',acao:'Dashboard de transparência: entregas completas por BU',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Olavo + BI',prazo:'10sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'78',bu:'Operações',acao:'Definição do caminho técnico para controle de completude no processo de emissão',quad:'Ferramentas',tipo:'Processo',wave:'Wave 2',impacto:'Alto',escopo:'Transversal',owner:'Olavo + TI',prazo:'12sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'80',bu:'Aviation',acao:'Mapeamento de vulnerabilidade e interlocutor secundário para Top 20 clientes',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Raquel + Marroquim',prazo:'90d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'81',bu:'Aviation',acao:'Inventário de renovações até o fim do ano com owner e ação preventiva',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Raquel',prazo:'30d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'82',bu:'Aviation',acao:'Playbook de sinistros Aviation com caso Voepass como template',quad:'Ferramentas',tipo:'Processo',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Floripes',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'83',bu:'Aviation',acao:'Checklist de cotação por produto com peculiaridades de seguradoras de nicho',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Floripes',prazo:'90d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'84',bu:'Aviation',acao:'Padronização do fluxo de onboarding para clientes de trading',quad:'MOTOR',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Floripes + Raquel',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'85',bu:'Aviation',acao:'Levantamento de receita por canal (direto, associado, filial, trading)',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Floripes',prazo:'45d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'86',bu:'Aviation',acao:'Shadow estruturada: equipe SP acompanha 3 cotações complexas com equipe técnica',quad:'Alma',tipo:'Pessoas',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Floripes + Dale',prazo:'60d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'87',bu:'Aviation',acao:'Co-visita da equipe SP a 3 clientes Top 20 para transferência gradual',quad:'Alma',tipo:'Pessoas',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Raquel + Dale',prazo:'90d',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'88',bu:'Garantia',acao:'Imersão de channel enablement com patrocínio de seguradora: filiais, FV SP e producers',quad:'Elo',tipo:'Visibilidade',wave:'Wave 1',impacto:'Alto',escopo:'Transversal',owner:'Valéria L.',prazo:'8sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'89',bu:'Garantia',acao:'Matriz de competências por modalidade: quem domina, backup, gaps',quad:'Alma',tipo:'Mitigação',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'Valéria L.',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'90',bu:'Garantia',acao:'Inventário cross-sell Garantia → Crédito e Garantia → D&O',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Valéria L.',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'91',bu:'Garantia',acao:'Ativação da Matriz de Afinidade Growth (CNAE×produto) para clientes com perfil Garantia',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'Valéria L.',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'92',bu:'Garantia',acao:'Diagnóstico de exposição regulatória Lei 15.040 para BU Garantia',quad:'Ferramentas',tipo:'Mitigação',wave:'Wave 2',impacto:'Alto',escopo:'Transversal',owner:'Valéria L.',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'93',bu:'Garantia',acao:'Inventário de exposição a clientes em RJ: Americanas, ST Importações, Raízen',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 1',impacto:'Alto',escopo:'BU-específica',owner:'Coordenação',prazo:'3sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'94',bu:'Crédito',acao:'Reunião estruturada Crédito + Growth: mapear perfil de cliente, definir cadência',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'D. Araf',prazo:'2sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'95',bu:'Crédito',acao:'Diagnóstico de vulnerabilidade competitiva da conta Allied (Eleven)',quad:'MOTOR',tipo:'Mitigação',wave:'Wave 2',impacto:'Médio',escopo:'BU-específica',owner:'D. Araf',prazo:'3sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'96',bu:'Crédito',acao:'Guia de acionamento + questionário orientado para comerciais de filiais',quad:'Elo',tipo:'Processo',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'D. Araf',prazo:'4sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'97',bu:'Crédito',acao:'Mapeamento das próximas 5 filiais a ativar: priorização por carteira',quad:'Elo',tipo:'Visibilidade',wave:'Wave 3',impacto:'Baixo',escopo:'BU-específica',owner:'D. Araf',prazo:'6sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'98',bu:'Crédito',acao:'Imersão channel enablement Crédito com patrocínio Coface',quad:'Elo',tipo:'Visibilidade',wave:'Wave 2',impacto:'Médio',escopo:'Transversal',owner:'D. Araf',prazo:'8sem',status:'pendente',prog:0,horas:0,custo:0},
+  {id:'99',bu:'Crédito',acao:'Dimensionamento do mercado de specialty credit na base Alper',quad:'Ferramentas',tipo:'Visibilidade',wave:'Wave 3',impacto:'Baixo',escopo:'BU-específica',owner:'D. Araf',prazo:'12sem',status:'pendente',prog:0,horas:0,custo:0},
+];
+
+const BU_COLORS={Vendas:'#7c3aed','Liability/LF':'#2563eb',Sinistros:'#db2777',Property:'#d97706',Agro:'#16a34a',Resseguros:'#0d9488','Cativas/GR':'#dc2626',Aviation:'#ea580c',Garantia:'#6366f1',Operações:'#0891b2',Crédito:'#7c3aed'};
+const QUAD_COLORS={MOTOR:'#7c3aed',Elo:'#0d9488',Ferramentas:'#2563eb',Alma:'#db2777'};
+const STATUS_LABELS={pendente:'Pendente',andamento:'Em andamento',concluido:'Concluído',atrasado:'Atrasado'};
+const STATUS_COLORS={concluido:'#16a34a',andamento:'#2563eb',atrasado:'#dc2626',pendente:'#d97706'};
+
+let DATA=[];
+let waveF='todos',buF='Todos',quadF='Todos',statusF='Todos';
+let editingId=null,activeTab='dashboard';
+
+// Generate anonymous user ID
+const userId='user_'+Math.random().toString(36).substr(2,6);
+document.getElementById('user-tag').textContent='ID: '+userId;
+
+function setSyncState(state,text){
+  const b=document.getElementById('sync-badge');
+  b.className='sync-badge '+state;
+  document.getElementById('sync-text').textContent=text;
+}
+
+// Listen to Firebase realtime updates
+onValue(dbRef,(snapshot)=>{
+  const val=snapshot.val();
+  if(val){
+    DATA=Object.values(val).sort((a,b)=>String(a.id).localeCompare(String(b.id),undefined,{numeric:true}));
+  } else {
+    // First time: seed the database
+    const obj={};
+    DEFAULTS.forEach(d=>{obj[d.id]=d;});
+    set(dbRef,obj);
+    DATA=[...DEFAULTS];
+  }
+  document.getElementById('loading').style.display='none';
+  setSyncState('ok','Sincronizado · '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
+  document.getElementById('last-update').textContent='Atualizado: '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  renderAll();
+},(error)=>{
+  document.getElementById('loading').style.display='none';
+  setSyncState('error','Erro Firebase: '+error.code);
+});
+
+async function saveItem(d){
+  setSyncState('syncing','Salvando...');
+  try{
+    await update(dbRef,{[d.id]:d});
+  }catch(e){
+    setSyncState('error','Erro ao salvar');
+  }
+}
+
+// ── HELPERS ──
+function qClass(q){return{MOTOR:'b-motor',Elo:'b-elo',Ferramentas:'b-ferr',Alma:'b-alma'}[q]||'b-motor';}
+function tClass(t){return{Mitigação:'b-mit',Processo:'b-proc',Visibilidade:'b-vis',Receita:'b-rec',Pessoas:'b-pes'}[t]||'';}
+function wClass(w){return{'Wave 1':'b-w1','Wave 2':'b-w2','Wave 3':'b-w3'}[w]||'b-w2';}
+function iClass(i){return{Alto:'b-alto',Médio:'b-medio',Baixo:'b-baixo'}[i]||'';}
+function sClass(s){return{concluido:'b-concluido',andamento:'b-andamento',atrasado:'b-atrasado',pendente:'b-pendente'}[s]||'b-pendente';}
+function waveData(){return waveF==='todos'?DATA:DATA.filter(d=>d.wave===waveF);}
+
+function barChart(id,items,max,colorFn,valFmtFn){
+  document.getElementById(id).innerHTML=items.map(it=>`
+    <div class="bar-row">
+      <div class="bar-label" title="${it.label}">${it.label}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${max?Math.max(it.val===0?0:2,Math.round(it.val/max*100)):0}%;background:${colorFn(it)};opacity:${it.val===0?.2:1};"></div></div>
+      <div class="bar-val">${valFmtFn?valFmtFn(it.val):it.val}</div>
+    </div>`).join('');
+}
+
+// ── DASHBOARD ──
+function renderDashboard(){
+  const d=waveData(); const total=d.length;
+  const concluido=d.filter(x=>x.status==='concluido').length;
+  const andamento=d.filter(x=>x.status==='andamento').length;
+  const atrasado=d.filter(x=>x.status==='atrasado').length;
+  const totalHoras=d.reduce((s,x)=>s+(x.horas||0),0);
+  const totalCusto=d.reduce((s,x)=>s+(x.custo||0),0);
+
+  document.getElementById('metrics').innerHTML=[
+    {l:'Iniciativas',v:total,s:'no filtro atual',a:''},
+    {l:'Concluídas',v:concluido,s:total?Math.round(concluido/total*100)+'% do total':'0%',a:'a2'},
+    {l:'Em andamento',v:andamento,s:'em execução',a:'a3'},
+    {l:'Horas investidas',v:totalHoras.toLocaleString('pt-BR')+'h',s:'total acumulado',a:'a4'},
+    {l:'Custo investido',v:'R$\u00a0'+totalCusto.toLocaleString('pt-BR'),s:'total acumulado',a:'a5'},
+  ].map(c=>`<div class="mc ${c.a}"><div class="ml">${c.l}</div><div class="mv" style="font-size:${String(c.v).length>9?'16px':'22px'}">${c.v}</div><div class="ms">${c.s}</div></div>`).join('');
+
+  barChart('chart-status',[
+    {label:'Concluído',val:concluido,_c:'#16a34a'},
+    {label:'Em andamento',val:andamento,_c:'#2563eb'},
+    {label:'Atrasado',val:atrasado,_c:'#dc2626'},
+    {label:'Pendente',val:d.filter(x=>x.status==='pendente').length,_c:'#d97706'},
+  ],Math.max(concluido,andamento,atrasado,d.filter(x=>x.status==='pendente').length,1),x=>x._c);
+
+  const buList=[...new Set(DATA.map(x=>x.bu))].sort();
+  const buProg=buList.map(bu=>{const items=d.filter(x=>x.bu===bu);return{label:bu,val:items.length?Math.round(items.reduce((s,x)=>s+x.prog,0)/items.length):0,_c:BU_COLORS[bu]||'#6366f1'};}).sort((a,b)=>b.val-a.val);
+  barChart('chart-bu-prog',buProg,100,x=>x._c,v=>v+'%');
+
+  barChart('chart-bu',[
+    {label:'Vendas',val:5},{label:'Liability/LF',val:5},{label:'Sinistros',val:4},{label:'Property',val:4},
+    {label:'Agro',val:3},{label:'Resseguros',val:3},{label:'Cativas/GR',val:3},
+    {label:'Aviation',val:2},{label:'Garantia',val:2},{label:'Operações',val:2},{label:'Crédito',val:0},
+  ],5,x=>BU_COLORS[x.label]||'#6366f1');
+
+  document.getElementById('chart-quad').innerHTML=[
+    {q:'MOTOR',g:16,w2:16,total:32},{q:'Elo',g:7,w2:23,total:30},
+    {q:'Ferramentas',g:5,w2:17,total:22},{q:'Alma',g:5,w2:7,total:12}
+  ].map(q=>`<div class="info-row">
+    <div class="info-name"><span class="qdot" style="background:${QUAD_COLORS[q.q]};"></span>${q.q}</div>
+    <div class="cnt-row"><span class="badge b-w1">${q.g} Golden</span><span class="badge b-w2">${q.w2} W2</span><span style="font-size:11px;color:var(--t3);min-width:44px;text-align:right;font-weight:600;">${q.total}</span></div>
+  </div>`).join('');
+
+  const tipoColors={Mitigação:'#dc2626',Processo:'#7c3aed',Visibilidade:'#2563eb',Receita:'#16a34a',Pessoas:'#db2777'};
+  const td2=['Mitigação','Processo','Visibilidade','Receita','Pessoas'].map(t=>({label:t,val:d.filter(x=>x.tipo===t).length,_c:tipoColors[t]}));
+  barChart('chart-tipo',td2,Math.max(...td2.map(x=>x.val),1),x=>x._c);
+
+  const id2=[{label:'Alto',val:d.filter(x=>x.impacto==='Alto').length,_c:'#dc2626'},{label:'Médio',val:d.filter(x=>x.impacto==='Médio').length,_c:'#d97706'},{label:'Baixo',val:d.filter(x=>x.impacto==='Baixo').length,_c:'#6b7280'}];
+  barChart('chart-impacto',id2,Math.max(...id2.map(x=>x.val),1),x=>x._c);
+
+  const ed2=[{label:'BU-específica',val:d.filter(x=>x.escopo==='BU-específica').length,_c:'#0d9488'},{label:'Transversal',val:d.filter(x=>x.escopo&&x.escopo.includes('Transversal')).length,_c:'#2563eb'}];
+  barChart('chart-escopo',ed2,Math.max(...ed2.map(x=>x.val),1),x=>x._c);
+
+  // Horas e Custo por BU
+  const horasByBu=buList.map(bu=>({label:bu,val:d.filter(x=>x.bu===bu).reduce((s,x)=>s+(x.horas||0),0),_c:BU_COLORS[bu]||'#6366f1'})).filter(x=>x.val>0).sort((a,b)=>b.val-a.val);
+  if(horasByBu.length) barChart('chart-horas-bu',horasByBu,Math.max(...horasByBu.map(x=>x.val),1),x=>x._c,v=>v+'h');
+  else document.getElementById('chart-horas-bu').innerHTML='<div class="empty-chart">Nenhuma hora registrada.<br>Edite as iniciativas para adicionar.</div>';
+
+  const custoByBu=buList.map(bu=>({label:bu,val:d.filter(x=>x.bu===bu).reduce((s,x)=>s+(x.custo||0),0),_c:BU_COLORS[bu]||'#6366f1'})).filter(x=>x.val>0).sort((a,b)=>b.val-a.val);
+  if(custoByBu.length) barChart('chart-custo-bu',custoByBu,Math.max(...custoByBu.map(x=>x.val),1),x=>x._c,v=>'R$'+v.toLocaleString('pt-BR'));
+  else document.getElementById('chart-custo-bu').innerHTML='<div class="empty-chart">Nenhum custo registrado.<br>Edite as iniciativas para adicionar.</div>';
+}
+
+// ── TABLE ──
+function filtered(){
+  const q=(document.getElementById('search')||{value:''}).value.toLowerCase();
+  return DATA.filter(d=>{
+    if(waveF!=='todos'&&d.wave!==waveF)return false;
+    if(buF!=='Todos'&&d.bu!==buF)return false;
+    if(quadF!=='Todos'&&d.quad!==quadF)return false;
+    if(statusF!=='Todos'&&d.status!==statusF)return false;
+    if(q&&!d.acao.toLowerCase().includes(q)&&!d.bu.toLowerCase().includes(q)&&!d.owner.toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+
+function renderFilters(){
+  const BUs=['Todos',...[...new Set(DATA.map(d=>d.bu))].sort()];
+  document.getElementById('bu-filters').innerHTML=BUs.map(b=>`<button class="chip${b===buF?' on':''}" onclick="setBU('${b}',this)">${b}</button>`).join('');
+  document.getElementById('quad-filters').innerHTML=['Todos','MOTOR','Elo','Ferramentas','Alma'].map(q=>`<button class="chip${q===quadF?' on':''}" onclick="setQuad('${q}',this)">${q}</button>`).join('');
+  document.getElementById('status-filters').innerHTML=['Todos','pendente','andamento','concluido','atrasado'].map(s=>`<button class="chip${s===statusF?' on':''}" onclick="setStatus('${s}',this)">${s==='Todos'?'Todos':STATUS_LABELS[s]}</button>`).join('');
+}
+
+function openEdit(id,trEl){
+  if(editingId===id){closeEdit();return;}
+  closeEdit();editingId=id;trEl.classList.add('editing');
+  const d=DATA.find(x=>x.id===id);
+  const er=document.createElement('tr');er.className='edit-row';er.id='edit-panel-row';
+  er.innerHTML=`<td colspan="13"><div class="edit-panel">
+    <div class="ef"><label>Ação</label><textarea id="e-acao" rows="2">${d.acao}</textarea></div>
+    <div class="ef"><label>Owner</label><input type="text" id="e-owner" value="${d.owner}"></div>
+    <div class="ef"><label>Prazo</label><input type="text" id="e-prazo" value="${d.prazo}" placeholder="ex: 30d, 4sem"></div>
+    <div class="ef"><label>Status</label><select id="e-status">
+      <option value="pendente"${d.status==='pendente'?' selected':''}>Pendente</option>
+      <option value="andamento"${d.status==='andamento'?' selected':''}>Em andamento</option>
+      <option value="concluido"${d.status==='concluido'?' selected':''}>Concluído</option>
+      <option value="atrasado"${d.status==='atrasado'?' selected':''}>Atrasado</option>
+    </select></div>
+    <div class="ef"><label>Progresso: <span id="e-pv">${d.prog}%</span></label>
+      <input type="range" id="e-prog" min="0" max="100" step="5" value="${d.prog}" oninput="document.getElementById('e-pv').textContent=this.value+'%'">
+    </div>
+    <div class="ef"><label>Horas trabalhadas</label><input type="number" id="e-horas" value="${d.horas||0}" min="0" step="0.5"></div>
+    <div class="ef"><label>Custo (R$)</label><input type="number" id="e-custo" value="${d.custo||0}" min="0" step="100"></div>
+    <div class="edit-actions">
+      <button class="btn-save" onclick="window._saveEdit('${id}')">Salvar</button>
+      <button class="btn-cancel" onclick="window._closeEdit()">Cancelar</button>
+    </div>
+  </div></td>`;
+  trEl.insertAdjacentElement('afterend',er);
+  document.getElementById('e-acao').focus();
+}
+
+function closeEdit(){
+  const p=document.getElementById('edit-panel-row');if(p)p.remove();
+  document.querySelectorAll('tbody tr.editing').forEach(r=>r.classList.remove('editing'));
+  editingId=null;
+}
+
+window._closeEdit=closeEdit;
+window._saveEdit=async(id)=>{
+  const d=DATA.find(x=>x.id===id);
+  d.acao=document.getElementById('e-acao').value.trim()||d.acao;
+  d.owner=document.getElementById('e-owner').value.trim();
+  d.prazo=document.getElementById('e-prazo').value.trim();
+  d.status=document.getElementById('e-status').value;
+  d.prog=parseInt(document.getElementById('e-prog').value);
+  d.horas=parseFloat(document.getElementById('e-horas').value)||0;
+  d.custo=parseFloat(document.getElementById('e-custo').value)||0;
+  if(d.status==='concluido')d.prog=100;
+  d.lastEditBy=userId;
+  d.lastEditAt=new Date().toISOString();
+  closeEdit();
+  await saveItem(d);
+};
+
+function renderTable(){
+  const rows=filtered();
+  const tbody=document.getElementById('tbody');
+  const empty=document.getElementById('empty');
+  if(!rows.length){tbody.innerHTML='';empty.style.display='block';document.getElementById('count-info').textContent='';return;}
+  empty.style.display='none';
+  document.getElementById('count-info').textContent=`${rows.length} de ${DATA.length} iniciativas`;
+  tbody.innerHTML=rows.map(d=>`<tr onclick="openEdit('${d.id}',this)" title="Clique para editar${d.lastEditBy?' · Editado por '+d.lastEditBy:''}">
+    <td class="id-c">${d.id}</td>
+    <td class="bu-c" style="color:${BU_COLORS[d.bu]||'#6366f1'};">${d.bu}</td>
+    <td class="ac-c">${d.acao}</td>
+    <td><span class="badge ${qClass(d.quad)}">${d.quad}</span></td>
+    <td><span class="badge ${tClass(d.tipo)}">${d.tipo}</span></td>
+    <td><span class="badge ${wClass(d.wave)}">${d.wave}</span></td>
+    <td><span class="badge ${iClass(d.impacto)}">${d.impacto}</span></td>
+    <td><span class="badge ${sClass(d.status)}">${STATUS_LABELS[d.status]||d.status}</span></td>
+    <td class="prog-c"><div class="prog-wrap"><div class="prog-fill" style="width:${d.prog}%;background:${STATUS_COLORS[d.status]||'#d97706'};"></div></div><div class="prog-label">${d.prog}%</div></td>
+    <td class="ow-c">${d.owner}</td>
+    <td class="pr-c">${d.prazo}</td>
+    <td class="hr-c">${d.horas?d.horas+'h':'—'}</td>
+    <td class="cu-c">${d.custo?'R$\u00a0'+Number(d.custo).toLocaleString('pt-BR'):'—'}</td>
+  </tr>`).join('');
+}
+
+// ── NAV ──
+function showTab(tab,el){
+  activeTab=tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');
+  document.getElementById('tab-dashboard').style.display=tab==='dashboard'?'block':'none';
+  document.getElementById('tab-lista').style.display=tab==='lista'?'block':'none';
+  renderAll();
+}
+function setWave(w,btn){waveF=w;document.querySelectorAll('header .wpill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');closeEdit();renderAll();}
+function setBU(b,btn){buF=b;document.querySelectorAll('#bu-filters .chip').forEach(x=>x.classList.remove('on'));btn.classList.add('on');closeEdit();renderTable();}
+function setQuad(q,btn){quadF=q;document.querySelectorAll('#quad-filters .chip').forEach(x=>x.classList.remove('on'));btn.classList.add('on');closeEdit();renderTable();}
+function setStatus(s,btn){statusF=s;document.querySelectorAll('#status-filters .chip').forEach(x=>x.classList.remove('on'));btn.classList.add('on');closeEdit();renderTable();}
+
+function renderAll(){if(activeTab==='dashboard')renderDashboard();else{renderFilters();renderTable();}}
+
+// Expose to global scope for onclick handlers
+window.openEdit=openEdit;
+window.showTab=showTab;
+window.setWave=setWave;
+window.setBU=setBU;
+window.setQuad=setQuad;
+window.setStatus=setStatus;
+</script>
+</body>
+</html>
